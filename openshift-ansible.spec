@@ -9,7 +9,7 @@
 %global __requires_exclude ^/usr/bin/ansible-playbook$
 
 Name:           openshift-ansible
-Version:        3.7.15
+Version:        3.7.28
 Release:        1%{?dist}
 Summary:        Openshift and Atomic Enterprise Ansible
 License:        ASL 2.0
@@ -285,6 +285,127 @@ Atomic OpenShift Utilities includes
 
 
 %changelog
+* Mon Feb 05 2018 Justin Pierce <jupierce@redhat.com> 3.7.28-1
+- Conditionally create pvcs for metrics depending on whether or not it already
+  exists (ewolinet@redhat.com)
+- cherry-pick to 3.7 gluster block (m.judeikis@gmail.com)
+- allow setting of kibana env vars (jcantril@redhat.com)
+- No longer compare with legacy hosted var (ewolinet@redhat.com)
+- Preserving ES dc storage type unless overridden by inventory variable
+  (ewolinet@redhat.com)
+- Rework provisioners vars to support different prefix/version for Origin/OSE
+  (vrutkovs@redhat.com)
+- Correct ability to override openshift_management_app_template
+  (rteague@redhat.com)
+- Pull openshift_image_tag from oo_masters_to_config rather oo_first_master.
+  (abutcher@redhat.com)
+- Default install_result when reloading generated facts. (abutcher@redhat.com)
+- Remove remaining haproxy files with uninstallation
+  (nakayamakenjiro@gmail.com)
+- Remove master ha_bool checks 3.7 (mgugino@redhat.com)
+- Don't restart docker when re-deploying node certs (sdodson@redhat.com)
+
+* Sat Jan 27 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.27-1
+- docker_image_availability: containerized overrides (lmeyer@redhat.com)
+- [release-3.7] [1538896] Correct certificate alt name parsing
+  (rteague@redhat.com)
+- Readd etcd openshift_facts (mgugino@redhat.com)
+- Only automatically restart if cluster is in yellow or green state
+  (ewolinet@redhat.com)
+- [1538816] Backport #6817 & #5970 (rteague@redhat.com)
+- [1530403] Improve etcd group error message (rteague@redhat.com)
+- Update haproxy.cfg.j2 (rteague@redhat.com)
+- Add support for Amazon EC2 C5 instance types (rteague@redhat.com)
+- Lowercase node names when creating certificates (vrutkovs@redhat.com)
+- Ensure that node names are lowerecased before matching (sdodson@redhat.com)
+- Ensure we are running oc execs against running pods (ewolinet@redhat.com)
+
+* Wed Jan 24 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.26-1
+- Update CF 4.6 Beta templates in openshift_management directory
+  (simaishi@redhat.com)
+- CF 4.6 templates (simaishi@redhat.com)
+- remove legacy master (m.judeikis@gmail.com)
+- openshift_checks: repair adhoc list-checks mode (lmeyer@redhat.com)
+- docker_image_availability: enable skopeo to use proxies (lmeyer@redhat.com)
+- Fix docker_image_availability checks (mgugino@redhat.com)
+- [1512810] Ensure failures during init abort installation (rteague@redhat.com)
+- Require minimum Ansible version 2.3.2 (rteague@redhat.com)
+- Allow for firewalld on atomic host (sdodson@redhat.com)
+- Fix a typo in "Determine if growpart is installed" (vrutkovs@redhat.com)
+- Check rc for commands with openshift_client_binary and failed_when
+  (vrutkovs@redhat.com)
+
+* Mon Jan 22 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.25-1
+- remove integration tests from tox (lmeyer@redhat.com)
+- Changing include_tasks to include for release-3.7 (ewolinet@redhat.com)
+- initialize_facts: include role os_firewall (gscrivan@redhat.com)
+
+* Fri Jan 19 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.24-1
+- Setting default storage_class_names for when calling
+  openshift_logging_elasticsearch role (ewolinet@redhat.com)
+- Fix service catalog upgrade from 3.6 (jpeeler@redhat.com)
+- Allow 5 etcd hosts as a valid configuration (sdodson@redhat.com)
+- Clean up host-local IPAM data while nodes are drained (danw@redhat.com)
+- Fix typo in daemonset update strategy (jpeeler@redhat.com)
+- Update deployment and apiserver with new certs (jpeeler@redhat.com)
+- Sync v3.7 image streams (sdodson@redhat.com)
+- Use Contiv version 1.2.0 (flamingo@2thebatcave.com)
+- Contiv multi-master and other fixes (flamingo@2thebatcave.com)
+- Remove version requirement from openvswitch package, since listed version got
+  removed from repo (riffraff@hobbes.alephone.org)
+- Contiv systemd fixes (flamingo@2thebatcave.com)
+- Multimaster openshift+contiv fixes (landillo@cisco.com)
+- container-engine: move registry_auth.yml before pull (gscrivan@redhat.com)
+- Update object_storage.yml (jkaur@redhat.com)
+- bad keyname in object_storage.yml (jkaur@redhat.com)
+
+* Thu Jan 11 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.23-1
+- Don't hardcode the network interface in the openshift_logging_mux role
+  (nkinder@redhat.com)
+- Adding logic to disable and reenable external communication to ES during full
+  restart (ewolinet@redhat.com)
+- Adding logic to do a full cluster restart if we are incrementing our major
+  versions of ES (ewolinet@redhat.com)
+- Port glusterfs optional default (#6182) to 3.7 stable
+  (david_hocky@comcast.com)
+- logging with static pvc: allow specifying the storage class name
+  (bart.vanbos@kbc.be)
+
+* Mon Jan 08 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.22-1
+- 
+
+* Mon Jan 08 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.21-1
+- Add origin- prefix to ASB image (fabian@fabianism.us)
+
+* Fri Jan 05 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.20-1
+- [release-3.7] Migrate to static: true for include_role (sdodson@redhat.com)
+
+* Thu Jan 04 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.19-1
+- 
+
+* Thu Jan 04 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.18-1
+- Add docker auth credentials to system container install (mgugino@redhat.com)
+
+* Mon Jan 01 2018 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.17-1
+- 
+
+* Thu Dec 21 2017 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.16-1
+- Add CentOS-OpenShift-Origin37 repo template. (abutcher@redhat.com)
+- openshift_logging_{fluentd,mux}_file_buffer_limit mismatch
+  (nhosoi@redhat.com)
+- Removing config trigger for ES DC, updating to use a handler to rollout ES at
+  the end of a deployment, allowing for override with variable
+  (ewolinet@redhat.com)
+- prevent TSB pods from spinning on inappropriate nodes (jminter@redhat.com)
+- Ensure that clients are version bound (sdodson@redhat.com)
+- For 3.6 to 3.7 upgrades stop all API and Controllers before upgrading
+  (sdodson@redhat.com)
+- Fix bz1523814 (sdodson@redhat.com)
+- bug 1519622. Disable rollback of ES DCs (jcantril@redhat.com)
+- GlusterFS: Add playbook doc note (jarrpa@redhat.com)
+- Allow number of retries in openshift_management to be configurable
+  (ealfassa@redhat.com)
+
 * Fri Dec 08 2017 Jenkins CD Merge Bot <smunilla@redhat.com> 3.7.15-1
 - Fix incorrect register name master registry auth (mgugino@redhat.com)
 
