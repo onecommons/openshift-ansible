@@ -8,6 +8,8 @@ metadata:
     {{key}}: {{value}}
 {% endfor %}
 {% endif %}
+  annotations:
+    kubernetes.io/tls-acme: "true"
 spec:
   host: {{ route_host }}
   tls:

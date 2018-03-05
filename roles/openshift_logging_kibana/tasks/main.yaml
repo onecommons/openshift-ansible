@@ -45,6 +45,10 @@
     image_pull_secrets: "{{ openshift_logging_image_pull_secret }}"
   when: openshift_logging_image_pull_secret != ''
 
+- name: make sure config vars is correct
+  fail: "should not Redirect {{ openshift_logging_master_public_url }}"
+  when: openshift_logging_kibana_edge_term_policy == 'Redirect'
+
 - name: Create Kibana service account
   oc_serviceaccount:
     state: present
