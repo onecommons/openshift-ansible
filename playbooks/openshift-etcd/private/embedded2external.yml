@@ -118,6 +118,7 @@
 
   - name: Delete temporary directory
     local_action: file path="{{ g_etcd_client_mktemp.stdout }}" state=absent
+    become: no
     changed_when: False
 
 # 7. force new cluster from the backup

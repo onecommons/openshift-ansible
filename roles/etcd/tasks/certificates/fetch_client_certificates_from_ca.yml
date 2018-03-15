@@ -117,6 +117,7 @@
   local_action: file path="/tmp/{{ inventory_hostname }}" state=absent
   changed_when: False
   when: etcd_client_certs_missing | bool
+  become: no
 
 - file:
     path: "{{ etcd_cert_config_dir }}/{{ item }}"

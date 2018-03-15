@@ -268,6 +268,7 @@
   hosts: localhost
   connection: local
   gather_facts: no
+  become: no
   tasks:
   - file:
       name: "{{ g_master_mktemp.stdout }}"

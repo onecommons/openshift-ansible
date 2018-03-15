@@ -3,12 +3,15 @@
   local_action: command mktemp -d /tmp/openshift-ansible-XXXXXXX
   register: copy_hosted_templates_mktemp
   run_once: True
+  become: false
+
   # AUDIT:changed_when: not set here because this task actually
   # creates something
 
 - name: Chmod local temp dir for OpenShift examples copy
   local_action: command chmod 777 "{{ copy_hosted_templates_mktemp.stdout }}"
   run_once: True
+  become: false
 
 - name: Create tar of OpenShift examples
   local_action: command tar -C "{{ role_path }}/files/{{ content_version }}/{{ hosted_deployment_type }}" -cvf "{{ copy_hosted_templates_mktemp.stdout }}/openshift-hosted-templates.tar" .
@@ -16,10 +19,12 @@
     # Disables the following warning:
     # Consider using unarchive module rather than running tar
     warn: no
+  become: false
 
 - name: Chmod local tar of OpenShift examples
   local_action: command chmod 744 "{{ copy_hosted_templates_mktemp.stdout }}/openshift-hosted-templates.tar"
   run_once: True
+  become: false
 
 - name: Create remote OpenShift hosted templates directory
   file:
@@ -34,6 +39,7 @@
 
 - name: Cleanup the OpenShift hosted templates temp dir
   local_action: file dest="{{ copy_hosted_templates_mktemp.stdout }}" state=absent
+  become: false
 
 - name: Modify registry paths if registry_url is not registry.access.redhat.com
   shell: >

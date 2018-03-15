@@ -15,10 +15,12 @@
   local_action: command mktemp -d /tmp/openshift-ansible-XXXXXXX
   register: copy_examples_mktemp
   run_once: True
+  become: false
 
 - name: Chmod local temp dir for OpenShift examples copy
   local_action: command chmod 777 "{{ copy_examples_mktemp.stdout }}"
   run_once: True
+  become: false
 
 - name: Create tar of OpenShift examples
   local_action: command tar -C "{{ role_path }}/files/examples/{{ content_version }}/" -cvf "{{ copy_examples_mktemp.stdout }}/openshift-examples.tar" .
@@ -26,10 +28,12 @@
     # Disables the following warning:
     # Consider using unarchive module rather than running tar
     warn: no
+  become: false
 
 - name: Chmod local temp dir for OpenShift examples copy
   local_action: command chmod 744 "{{ copy_examples_mktemp.stdout }}/openshift-examples.tar"
   run_once: True
+  become: false
 
 - name: Create the remote OpenShift examples directory
   file:
