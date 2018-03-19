@@ -9,7 +9,7 @@
 %global __requires_exclude ^/usr/bin/ansible-playbook$
 
 Name:           openshift-ansible
-Version:        3.9.2
+Version:        3.9.11
 Release:        1%{?dist}
 Summary:        Openshift and Atomic Enterprise Ansible
 License:        ASL 2.0
@@ -17,7 +17,7 @@ URL:            https://github.com/openshift/openshift-ansible
 Source0:        https://github.com/openshift/openshift-ansible/archive/%{commit}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:      ansible >= 2.4.1
+Requires:      ansible >= 2.4.3
 Requires:      python2
 Requires:      python-six
 Requires:      tar
@@ -202,6 +202,91 @@ Atomic OpenShift Utilities includes
 
 
 %changelog
+* Thu Mar 15 2018 Justin Pierce <jupierce@redhat.com> 3.9.11-1
+- 
+
+* Thu Mar 15 2018 Justin Pierce <jupierce@redhat.com> 3.9.10-1
+- 
+
+* Wed Mar 14 2018 Justin Pierce <jupierce@redhat.com> 3.9.9-1
+- Pop etcd_port from local_facts file (mgugino@redhat.com)
+- Bug 1554828- Nodes are now labeled compute after other labels have been
+  applied (fabian@fabianism.us)
+- GlusterFS: Add HEKETI_IGNORE_STALE_OPERATIONS to templates
+  (jarrpa@redhat.com)
+- Bug 1548641- Correct arguments to yedit (fabian@fabianism.us)
+
+* Tue Mar 13 2018 Justin Pierce <jupierce@redhat.com> 3.9.8-1
+- Bug 1548541- Conditional for applying defaultNodeSelector now valid
+  (fabian@fabianism.us)
+- Enable epel-testing repo for ansible-2.4.3 until it goes live
+  (sdodson@redhat.com)
+- Temporarily fix Dockerfile until we can find a replacement package
+  (ccoleman@redhat.com)
+- Require Ansible 2.4.3 (rteague@redhat.com)
+
+* Sun Mar 11 2018 Justin Pierce <jupierce@redhat.com> 3.9.7-1
+- 
+
+* Sun Mar 11 2018 Justin Pierce <jupierce@redhat.com> 3.9.6-1
+- Changing python regex method from match to search due to variable content
+  structure (ewolinet@redhat.com)
+
+* Sat Mar 10 2018 Justin Pierce <jupierce@redhat.com> 3.9.5-1
+- Adding missed line change (ewolinet@redhat.com)
+- Ensure that the aggregator is configured during all control plane upgrades
+  (sdodson@redhat.com)
+- Revert delete tsb upgrade (mgugino@redhat.com)
+- Correctly escape the variable value for regex searching when building patch
+  (ewolinet@redhat.com)
+- Only run no_log on task that scrapes all inventory variables
+  (sdodson@redhat.com)
+- Fix the gluster-s3 pod label used in gluster-s3 service.
+  (sarumuga@redhat.com)
+- Fix for gluster-s3 pvc check count. (sarumuga@redhat.com)
+- Fix rhgs-s3 image name (sarumuga@redhat.com)
+- Add s3 and block uninstall sections as well. (sarumuga@redhat.com)
+
+* Thu Mar 08 2018 Justin Pierce <jupierce@redhat.com> 3.9.4-1
+- openshift_node: Remove hardcoded cri-o node labels (smilner@redhat.com)
+- Update roles and playbooks to split cri-o install types (smilner@redhat.com)
+- bump route timeout based on online testing (gmontero@redhat.com)
+- system containers: ensure Atomic won't reset permissions for etcd_data_dir
+  (vrutkovs@redhat.com)
+- Updating how the whitelist works -- changing from removing the lines which
+  can cause issues when patching lines near the whitelist line to changing the
+  current source line to match the new souce line (ewolinet@redhat.com)
+- firewall: allow access to DNS for flannel network (vrutkovs@redhat.com)
+- docker-gc: use openshift_client_binary to support Atomic
+  (vrutkovs@redhat.com)
+- docker_gc: map the r_docker_gc_node_selectors to pairs (vrutkovs@redhat.com)
+- TSB upgrade remove and reinstall (mgugino@redhat.com)
+- Bug 1548641- upgrade now properly sets labels and selectors
+  (fabian@fabianism.us)
+- Remove force cache during node upgrade install (mgugino@redhat.com)
+- Use variables for docker_gc image (rteague@redhat.com)
+- Add .default to no_proxy list for ASB. (derekwhatley@gmail.com)
+- Bug 1550148 - Don't use undefined openshift_version in
+  openshift_sanitize_inventory (spadgett@redhat.com)
+- Add wait_for_pods to upgrade for hosted components (mgugino@redhat.com)
+- Fix hosted registry upgrade bug (mgugino@redhat.com)
+- Make broker pods run correct versions on upgrade (jpeeler@redhat.com)
+- pull in recent jenkins template updates (gmontero@redhat.com)
+
+* Tue Mar 06 2018 Justin Pierce <jupierce@redhat.com> 3.9.3-1
+- enable iscsid on start and add rpcbind dependencies (m.judeikis@gmail.com)
+- Remove redeploy after the roll has executed. (kwoodson@redhat.com)
+- crio: Add schedulable check for dockergc-ds (smilner@redhat.com)
+- crio: docker_gc on by default (smilner@redhat.com)
+- ansible-quite: set callback_plugins path (vrutkovs@redhat.com)
+- Change default etcd port to 2379 (jpeeler@redhat.com)
+- Ensure removed web console extension variables are not set
+  (spadgett@redhat.com)
+- Bug 1550148 - Fail install if console port does not match API server port
+  (spadgett@redhat.com)
+- fix bz 1550271: restore mpath defaults config (hchen@redhat.com)
+- Add proxy env vars to ASB DC. (derekwhatley@gmail.com)
+
 * Fri Mar 02 2018 Justin Pierce <jupierce@redhat.com> 3.9.2-1
 - Master scheduler upgrade cleanup (mgugino@redhat.com)
 - docker_image_availability: encode error message (vrutkovs@redhat.com)
