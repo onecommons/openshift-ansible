@@ -859,6 +859,10 @@ def locate_oc_binary():
     # https://github.com/openshift/openshift-ansible/issues/3410
     # oc can be in /usr/local/bin in some cases, but that may not
     # be in $PATH due to ansible/sudo
+    oc_binary_path = os.environ.get("OPENSHIFT_ANSIBLE_OCBINARY")
+    if oc_binary_path:
+        return oc_binary_path
+
     paths = os.environ.get("PATH", os.defpath).split(os.pathsep) + ADDITIONAL_PATH_LOOKUPS
 
     oc_binary = 'oc'
@@ -888,7 +892,11 @@ class OpenShiftCLI(object):
         ''' Constructor for OpenshiftCLI '''
         self.namespace = namespace
         self.verbose = verbose
-        self.kubeconfig = Utils.create_tmpfile_copy(kubeconfig)
+        kubeconfigInEnv = os.environ.get("OPENSHIFT_ANSIBLE_KUBECONFIG")
+        if kubeconfigInEnv:
+            self.kubeconfig = kubeconfigInEnv
+        else:
+            self.kubeconfig = Utils.create_tmpfile_copy(kubeconfig)
         self.all_namespaces = all_namespaces
         self.oc_binary = locate_oc_binary()
 
@@ -1464,7 +1472,6 @@ class OpenShiftCLIConfig(object):
                 rval.append('--{}={}'.format(key.replace('_', '-'), val))
 
         return rval
-
 
 # -*- -*- -*- End included fragment: lib/base.py -*- -*- -*-
 
